@@ -71,12 +71,4 @@ class HomeFragment : Fragment() {
         }
     }
 
-    fun shareText(body: String?) {
-        val txtIntent = Intent(Intent.ACTION_SEND)
-        txtIntent.type = "text/plain"
-        txtIntent.putExtra(Intent.EXTRA_SUBJECT, "Share this recipee through...")
-        txtIntent.putExtra(Intent.EXTRA_TEXT, body)
-        startActivity(Intent.createChooser(txtIntent, "Share"))
-    }
-
 }

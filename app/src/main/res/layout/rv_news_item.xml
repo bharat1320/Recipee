@@ -36,7 +36,6 @@
         android:layout_width="match_parent"
         android:layout_height="200dp"
         android:background="@color/white"
-        android:contentDescription="@string/content_description"
         android:scaleType="fitXY"
         android:src="@drawable/ic_background_news"
         app:layout_constraintTop_toTopOf="parent" />

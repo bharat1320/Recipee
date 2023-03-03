@@ -5,13 +5,9 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 
 @Entity(tableName = "bookmarks")
-data class Bookmark(
+data class Dish(
     @PrimaryKey val id: Int,
     @ColumnInfo(name = "title")val title : String,
     @ColumnInfo(name = "image")val image : String,
-    @ColumnInfo(name = "urlToImage")val nutrition : ArrayList<Nutrient>
+    @ColumnInfo(name = "nutrition") val nutrition : ArrayList<Nutrient>
 )
-
-fun Bookmark.dishToBookmark(item :Dish) : Bookmark{
-    return Bookmark(item.id,item.title,item.image,item.nutrition)
-}

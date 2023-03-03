@@ -1,13 +1,13 @@
 package com.project.recipee.database
 
 import android.content.Context
-import androidx.room.Database
-import androidx.room.Room
-import androidx.room.RoomDatabase
-import com.project.recipee.data.Bookmark
+import androidx.room.*
+import com.project.recipee.data.Dish
+import com.project.recipee.util.Converters
 import com.project.recipee.viewModel.dao.BookmarksDao
 
-@Database(entities = [Bookmark :: class], version = 1)
+@Database(entities = [Dish :: class], version = 1)
+@TypeConverters(Converters::class)
 abstract class AppDatabase : RoomDatabase(){
 
     abstract fun bookmarksDao() : BookmarksDao

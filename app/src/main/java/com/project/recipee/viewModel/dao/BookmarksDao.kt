@@ -5,19 +5,19 @@ import androidx.room.Delete
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
-import com.project.recipee.data.Bookmark
+import com.project.recipee.data.Dish
 
 @Dao
 interface BookmarksDao {
 
     @Query("SELECT * FROM bookmarks")
-    suspend fun getAllBookmarks() : List<Bookmark>
+    suspend fun getAllBookmarks() : List<Dish>
 
     @Insert(onConflict = OnConflictStrategy.IGNORE)
-    suspend fun addToBookmarks(bookmark: Bookmark)
+    suspend fun addToBookmarks(dish: Dish)
 
     @Delete
-    suspend fun deleteFromBookmarks(bookmark: Bookmark)
+    suspend fun deleteFromBookmarks(dish: Dish)
 
     // Here it returns number of rows deleted count
     @Query("DELETE FROM bookmarks")

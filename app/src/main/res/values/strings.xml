@@ -2,39 +2,122 @@
     <string name="app_name">Recipe</string>
     <string name="country">Country</string>
     <string name="category">Category</string>
-    <string name="content_description">Content Description</string>
-    <string name="news">News</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="bookmarks">Bookmarks</string>
 
+<!--    <string-array name="cuisine_list">-->
+<!--        <item>African</item>-->
+<!--        <item>American</item>-->
+<!--        <item>British</item>-->
+<!--        <item>Cajun</item>-->
+<!--        <item>Caribbean</item>-->
+<!--        <item>Chinese</item>-->
+<!--        <item>Eastern European</item>-->
+<!--        <item>European</item>-->
+<!--        <item>French</item>-->
+<!--        <item>German</item>-->
+<!--        <item>Greek</item>-->
+<!--        <item>Indian</item>-->
+<!--        <item>Irish</item>-->
+<!--        <item>Italian</item>-->
+<!--        <item>Japanese</item>-->
+<!--        <item>Jewish</item>-->
+<!--        <item>Korean</item>-->
+<!--        <item>Latin American</item>-->
+<!--        <item>Mediterranean</item>-->
+<!--        <item>Mexican</item>-->
+<!--        <item>Middle Eastern</item>-->
+<!--        <item>Nordic</item>-->
+<!--        <item>Southern</item>-->
+<!--        <item>Spanish</item>-->
+<!--        <item>Thai</item>-->
+<!--        <item>Vietnamese</item>-->
+<!--    </string-array>-->
+
     <string-array name="cuisine_list">
-        <item>African</item>
         <item>American</item>
-        <item>British</item>
-        <item>Cajun</item>
         <item>Caribbean</item>
-        <item>Chinese</item>
-        <item>Eastern European</item>
-        <item>European</item>
         <item>French</item>
         <item>German</item>
-        <item>Greek</item>
         <item>Indian</item>
-        <item>Irish</item>
         <item>Italian</item>
-        <item>Japanese</item>
-        <item>Jewish</item>
-        <item>Korean</item>
-        <item>Latin American</item>
         <item>Mediterranean</item>
         <item>Mexican</item>
-        <item>Middle Eastern</item>
-        <item>Nordic</item>
-        <item>Southern</item>
         <item>Spanish</item>
         <item>Thai</item>
-        <item>Vietnamese</item>
     </string-array>
+
+<!--    <string-array name="mineral_list">-->
+<!--        <item>(empty)</item>-->
+<!--        <item>folate</item>-->
+<!--        <item>sugar</item>-->
+<!--        <item>meta-score</item>-->
+<!--        <item>folic-acid</item>-->
+<!--        <item>zinc</item>-->
+<!--        <item>popularity</item>-->
+<!--        <item>iodine</item>-->
+<!--        <item>healthiness</item>-->
+<!--        <item>iron</item>-->
+<!--        <item>price</item>-->
+<!--        <item>magnesium</item>-->
+<!--        <item>time</item>-->
+<!--        <item>manganese</item>-->
+<!--        <item>random</item>-->
+<!--        <item>vitamin-b3</item>-->
+<!--        <item>max-used-ingredients</item>-->
+<!--        <item>niacin</item>-->
+<!--        <item>min-missing-ingredients</item>-->
+<!--        <item>vitamin-b5</item>-->
+<!--        <item>alcohol</item>-->
+<!--        <item>pantothenic-acid</item>-->
+<!--        <item>caffeine</item>-->
+<!--        <item>phosphorus</item>-->
+<!--        <item>copper</item>-->
+<!--        <item>potassium</item>-->
+<!--        <item>energy</item>-->
+<!--        <item>protein</item>-->
+<!--        <item>calories</item>-->
+<!--        <item>vitamin-b2</item>-->
+<!--        <item>calcium</item>-->
+<!--        <item>riboflavin</item>-->
+<!--        <item>carbohydrates</item>-->
+<!--        <item>selenium</item>-->
+<!--        <item>carbs</item>-->
+<!--        <item>sodium</item>-->
+<!--        <item>choline</item>-->
+<!--        <item>vitamin-b1</item>-->
+<!--        <item>cholesterol</item>-->
+<!--        <item>thiamin</item>-->
+<!--        <item>total-fat</item>-->
+<!--        <item>vitamin-a</item>-->
+<!--        <item>fluoride</item>-->
+<!--        <item>vitamin-b6</item>-->
+<!--        <item>trans-fat</item>-->
+<!--        <item>vitamin-b12</item>-->
+<!--        <item>saturated-fat</item>-->
+<!--        <item>vitamin-c</item>-->
+<!--        <item>mono-unsaturated-fat</item>-->
+<!--        <item>vitamin-d</item>-->
+<!--        <item>poly-unsaturated-fat</item>-->
+<!--        <item>vitamin-e</item>-->
+<!--        <item>fiber</item>-->
+<!--        <item>vitamin-k</item>-->
+<!--    </string-array>-->
+
+    <string-array name="sort_list">
+        <item>(empty)</item>
+        <item>popularity</item>
+        <item>healthiness</item>
+        <item>price</item>
+        <item>time</item>
+        <item>random</item>
+        <item>max-used-ingredients</item>
+        <item>min-missing-ingredients</item>
+        <item>iron</item>
+        <item>energy</item>
+        <item>protein</item>
+        <item>calcium</item>
+        <item>fiber</item>
+    </string-array>
+
 
 </resources>
