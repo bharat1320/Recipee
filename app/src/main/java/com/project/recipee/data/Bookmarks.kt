@@ -9,5 +9,5 @@ data class Dish(
     @PrimaryKey val id: Int,
     @ColumnInfo(name = "title")val title : String,
     @ColumnInfo(name = "image")val image : String,
-    @ColumnInfo(name = "nutrition") val nutrition : ArrayList<Nutrient> = arrayListOf()
+    @ColumnInfo(name = "nutrition") val nutrition : ArrayList<Nutrient>?
 )
