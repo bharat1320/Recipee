@@ -42,7 +42,7 @@ object RetrofitInstance {
 //                    .build()
         .addInterceptor { chain ->
             val newRequest: Request = chain.request().newBuilder()
-                .addHeader("x-api-key", "edff5a27d2cc4585928837c7338201e5")
+                .addHeader(URLS.headerName, URLS.headerValue)
                 .build()
             chain.proceed(newRequest)
         }.build()

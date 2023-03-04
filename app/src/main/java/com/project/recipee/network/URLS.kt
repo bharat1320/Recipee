@@ -2,6 +2,9 @@ package com.project.recipee.network
 
 class URLS {
     companion object {
-        const val apiKey = "&apiKey=967c9c2881cc4a1bb37013722db634c2"
+        const val headerName = "x-api-key"
+        const val headerValue = "edff5a27d2cc4585928837c7338201e5"
+
+        const val complexSearch = "complexSearch"
     }
 }

@@ -21,14 +21,14 @@ android {
 
     buildTypes {
         release {
-            buildConfigField ("String", "BASE_URL", '"https://newsapi.org/v2/top-headlines/"')
+            buildConfigField ("String", "BASE_URL", '"https://api.spoonacular.com/recipes/"')
             buildConfigField ("Boolean", "devMode", 'false')
             minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
         debug {
             debuggable = true
-            buildConfigField ("String", "BASE_URL", '"https://newsapi.org/v2/top-headlines/"')
+            buildConfigField ("String", "BASE_URL", '"https://api.spoonacular.com/recipes/"')
             buildConfigField ("Boolean", "devMode", 'true')
         }
     }
@@ -71,7 +71,6 @@ dependencies {
     implementation 'com.squareup.retrofit2:converter-gson:2.8.1'
     implementation 'com.squareup.retrofit2:converter-scalars:2.5.0'
 
-
 //    Glide
     implementation 'com.github.bumptech.glide:glide:4.12.0'
     implementation 'com.github.bumptech.glide:annotations:4.12.0'
@@ -87,6 +86,12 @@ dependencies {
 //    Using hilt
     implementation "com.google.dagger:hilt-android:2.44"
     kapt "com.google.dagger:hilt-compiler:2.44"
+
+//    Pagination
+    def paging_version = "3.1.1"
+    implementation "androidx.paging:paging-runtime-ktx:$paging_version"
+    testImplementation "androidx.paging:paging-common-ktx:$paging_version"
+
 }
 
 kapt {
