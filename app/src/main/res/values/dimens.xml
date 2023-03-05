@@ -1,14 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
+    <dimen name="dp_2">2dp</dimen>
     <dimen name="very_short_margin">3dp</dimen>
-    <dimen name="drawable_padding">9dp</dimen>
     <dimen name="short_margin">8dp</dimen>
+    <dimen name="drawable_padding">9dp</dimen>
     <dimen name="border_margin">12dp</dimen>
     <dimen name="very_large_margin">30dp</dimen>
     <dimen name="news_item_corner_radius">12dp</dimen>
 
+    <dimen name="icon_size">35dp</dimen>
+
     <dimen name="text_size_11sp">11sp</dimen>
+    <dimen name="text_size_12sp">12sp</dimen>
     <dimen name="text_size_13sp">13sp</dimen>
     <dimen name="text_size_14sp">14sp</dimen>
     <dimen name="text_size_15sp">15sp</dimen>

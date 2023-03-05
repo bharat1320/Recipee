@@ -12,7 +12,6 @@ import com.project.recipee.viewModel.RecipeViewModel
 
 class RegisterFragment : Fragment() {
     lateinit var binding :FragmentRegisterBinding
-    lateinit var vm :RecipeViewModel
     lateinit var mainViewModel: MainViewModel
 
     override fun onCreateView(
@@ -25,8 +24,6 @@ class RegisterFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-        vm = ViewModelProvider(this)[RecipeViewModel::class.java]
         mainViewModel = ViewModelProvider(requireActivity())[MainViewModel::class.java]
 
 

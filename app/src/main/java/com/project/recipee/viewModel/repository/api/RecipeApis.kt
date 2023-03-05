@@ -10,7 +10,7 @@ import retrofit2.http.Url
 interface RecipeApis {
 
     @GET
-    suspend fun getRecipe(@Url url :String) : Any
+    suspend fun getRecipe(@Url url :String) : String
 
     @GET(URLS.complexSearch)
     suspend fun getDishList(

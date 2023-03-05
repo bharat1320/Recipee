@@ -1,11 +1,10 @@
 <resources>
     <string name="app_name">Recipe</string>
-    <string name="cuisine">Cuisine</string>
-    <string name="sort">Sort</string>
     <string name="shopping_list">Shopping List</string>
 
+    <string name="all_cuisine">All Cuisine</string>
     <string-array name="cuisine_list">
-        <item>All</item>
+        <item>All Cuisine</item>
         <item>American</item>
         <item>Caribbean</item>
         <item>French</item>
@@ -18,8 +17,10 @@
         <item>Thai</item>
     </string-array>
 
+    <string name="all_sort">All Sort</string>
+    <string name="search">Search</string>
     <string-array name="sort_list">
-        <item>All</item>
+        <item>All Sort</item>
         <item>popularity</item>
         <item>healthiness</item>
         <item>price</item>
@@ -33,6 +34,8 @@
         <item>calcium</item>
         <item>fiber</item>
     </string-array>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 
     <!--    <string-array name="cuisine_list">-->
     <!--        <item>All</item>-->

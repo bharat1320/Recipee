@@ -9,12 +9,11 @@ class RecipeRepository
 @Inject constructor(
     val api : RecipeApis
 ) {
-
-    suspend fun getRecipeData(url :String): Any {
+    suspend fun getRecipeData(url :String): String {
         return try{
             api.getRecipe(url)
         } catch(e :Exception) {
-
+            e.toString()
         }
     }
 

@@ -1,15 +1,18 @@
 package com.project.recipee.ui.home
 
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
-import android.widget.Toast
+import android.widget.SearchView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
-import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.paging.PagingData
+import androidx.recyclerview.widget.GridLayoutManager
 import com.project.recipee.R
 import com.project.recipee.data.Dish
 import com.project.recipee.database.AppDatabase
@@ -20,16 +23,25 @@ import com.project.recipee.ui.home.adapters.HomeRvPagingAdapter
 import com.project.recipee.viewModel.MainViewModel
 import com.project.recipee.viewModel.RecipeViewModel
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class HomeFragment : Fragment(), HomeRvItemClicked {
     lateinit var binding :FragmentHomeBinding
-    lateinit var vm :RecipeViewModel
     lateinit var mainViewModel: MainViewModel
+    private lateinit var appDb : AppDatabase
+    lateinit var vm :RecipeViewModel
     lateinit var adapter: HomeRvPagingAdapter
 
-    private lateinit var appDb : AppDatabase
+    var lastSelectedQuery = "paneer"
+    var lastSelectedCuisine = ""
+    var lastSelectedSort = ""
+
+//    This is for search optimization
+    var searchThreadBusy = false
+    private val timeDelay = 0.8 // in seconds
 
     companion object{
         lateinit var cuisineList: Array<String>
@@ -47,7 +59,7 @@ class HomeFragment : Fragment(), HomeRvItemClicked {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        vm = ViewModelProvider(this)[RecipeViewModel::class.java]
+        vm = ViewModelProvider(requireActivity())[RecipeViewModel::class.java]
         mainViewModel = ViewModelProvider(requireActivity())[MainViewModel::class.java]
         appDb = AppDatabase.getDatabaseInstance(activity as MainActivity)
 
@@ -62,7 +74,14 @@ class HomeFragment : Fragment(), HomeRvItemClicked {
     }
 
     fun getData() {
-
+        adapter.submitData(lifecycle, PagingData.empty())
+        adapter.refresh()
+//        adapter.notifyDataSetChanged()
+        lifecycleScope.launch(Dispatchers.IO) {
+            vm.getDishList(lastSelectedQuery, lastSelectedCuisine, lastSelectedSort).collectLatest { data ->
+                adapter.submitData(data)
+            }
+        }
     }
 
     fun adapters() {
@@ -85,46 +104,60 @@ class HomeFragment : Fragment(), HomeRvItemClicked {
             )
         )
 
-        binding.homeNewsRv.layoutManager = LinearLayoutManager(requireContext())
+        binding.homeNewsRv.layoutManager = GridLayoutManager(requireContext(),2)
+//        binding.homeNewsRv.layoutManager = object : GridLayoutManager(requireContext(),2) {
+//            override fun canScrollVertically(): Boolean {
+//                return false
+//            }
+//        }
         adapter = HomeRvPagingAdapter(requireContext(),binding.homeNewsRv,this)
         binding.homeNewsRv.adapter = adapter
     }
 
     fun observers() {
-        lifecycleScope.launchWhenStarted {
-            vm.getDishList().collectLatest { data ->
-                adapter.submitData(data)
-            }
-        }
+
     }
 
     fun listener() {
         binding.homeCuisineFilter.setOnItemClickListener { _, _, position, _ ->
             var item = cuisineList[position]
-            item = if(item == "All") "" else item
-
+            lastSelectedCuisine = if(item == resources.getString(R.string.all_cuisine)) "" else item
+            getData()
         }
 
         binding.homeSortFilter.setOnItemClickListener { _, _, position, _ ->
             var item = sortCategoryList[position]
-            item = if(item == "All") "" else item
-
+            lastSelectedSort = if(item == resources.getString(R.string.all_sort)) "" else item
+            getData()
         }
 
-        binding.homeShopping.setOnClickListener {
-
-        }
         binding.homeShoppingImage.setOnClickListener {
 
+        }
+
+        binding.searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener,
+            androidx.appcompat.widget.SearchView.OnQueryTextListener {
+            override fun onQueryTextSubmit(query: String?): Boolean {
+                checkSearchThreadAvailability(query)
+                return false
+            }
+            override fun onQueryTextChange(query: String?): Boolean {
+                checkSearchThreadAvailability(query)
+                return false
+            }
+        })
+    }
+
+    fun checkSearchThreadAvailability(query : String?) {
+        if(!searchThreadBusy) {
+            Handler(Looper.getMainLooper()).postDelayed({
+                lastSelectedQuery = query ?: lastSelectedQuery
+                getData()
+            }, (timeDelay * 1000).toLong())
         }
     }
 
     override fun itemCLicked(item: Dish) {
-//        Toast.makeText(requireContext(), "hiiii", Toast.LENGTH_SHORT).show()
-
-    }
-
-    override fun itemShareCLicked(item: Dish) {
 
     }
 

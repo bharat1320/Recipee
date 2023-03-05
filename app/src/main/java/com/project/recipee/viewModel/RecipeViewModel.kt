@@ -10,8 +10,8 @@ import androidx.paging.cachedIn
 import com.project.recipee.data.Dish
 import com.project.recipee.ui.home.adapters.pagingSource.HomeRvPagingSource
 import com.project.recipee.viewModel.repository.RecipeRepository
-import com.project.recipee.viewModel.repository.api.RecipeApis
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.launch
@@ -20,13 +20,21 @@ import javax.inject.Inject
 
 @HiltViewModel
 class RecipeViewModel @Inject constructor(
-    private val repository: RecipeRepository
+    val repository: RecipeRepository
 ) :ViewModel() {
 
+    var recipeData : MutableLiveData<String> = MutableLiveData()
+
     fun getDishList(query :String = "", cuisine :String = "", sort :String = "") : Flow<PagingData<Dish>> = Pager(
-        config = PagingConfig(10,enablePlaceholders = false)
+        config = PagingConfig(HomeRvPagingSource.number,enablePlaceholders = false)
     ){
         HomeRvPagingSource(repository.api,query,cuisine,sort)
     }.flow.cachedIn(viewModelScope)
+
+    fun getRecipeData(url :String) {
+        CoroutineScope(Dispatchers.IO).launch {
+            recipeData.postValue(repository.getRecipeData(url))
+        }
+    }
 
 }

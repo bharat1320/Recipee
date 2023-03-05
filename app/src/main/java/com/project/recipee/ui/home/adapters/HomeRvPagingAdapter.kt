@@ -5,15 +5,14 @@ import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
-import android.widget.TextView
 import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.airbnb.lottie.LottieAnimationView
 import com.bumptech.glide.Glide
-import com.project.recipee.R
+import com.bumptech.glide.request.RequestOptions
 import com.project.recipee.data.Dish
+import com.project.recipee.data.getNutritionString
 import com.project.recipee.databinding.RvDishItemBinding
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -32,16 +31,26 @@ class HomeRvPagingAdapter(val context: Context, val rv: RecyclerView, private va
         val item = getItem(position)
         item?.let {
             holder.binding.let {
-
-                val imageWidthPixels = 1024
-                val imageHeightPixels = 768
-
-                CoroutineScope(Dispatchers.Main).launch {
-                    it.homeRvItemImage.layout(0,0,0,0)
-                    Glide.with(context).load(item.image).override(imageWidthPixels, imageHeightPixels).into(it.homeRvItemImage)
-                }
-
+//                val imageWidthPixels = 1024
+//                val imageHeightPixels = 768
+//
+//                val sizePass = RequestOptions().override(100,100)
+//
+//                CoroutineScope(Dispatchers.Main).launch {
+//                    it.homeRvItemImage.layout(0,0,0,0)
+//                    Glide.with(context)
+//                        .load(item.image)
+//                        .override(it.homeRvItemImage.width,it.homeRvItemImage.height)
+//                        .apply(sizePass)
+//                        .into(it.homeRvItemImage)
+//                }
+                Glide.with(context).load(item.image).override(it.homeRvItemImage.width,it.homeRvItemImage.height).into(it.homeRvItemImage)
                 it.homeRvItemTitle.text = item.title
+                it.homeRvItemChip.chipLayout.visibility = View.GONE
+                if(item.nutrition?.nutrients?.isNotEmpty() == true) {
+                    it.homeRvItemChip.chipLayout.visibility = View.VISIBLE
+                    it.homeRvItemChip.chipText.text = item.nutrition.nutrients[0].getNutritionString()
+                }
 
                 it.homeRvItemLike.setOnClickListener {
                     listener.itemCLicked(item)
@@ -49,10 +58,6 @@ class HomeRvPagingAdapter(val context: Context, val rv: RecyclerView, private va
 
                 it.homeRvItemTitle.setOnClickListener {
                     listener.itemCLicked(item)
-                }
-
-                it.homeRvItemShare.setOnClickListener {
-                    listener.itemShareCLicked(item)
                 }
 
                 it.homeRvItemLike.setOnClickListener { view ->
@@ -106,7 +111,6 @@ class HomeRvPagingAdapter(val context: Context, val rv: RecyclerView, private va
 
 interface HomeRvItemClicked{
     fun itemCLicked(item: Dish)
-    fun itemShareCLicked(item: Dish)
     fun itemAddToCartCLicked(item: Dish)
     fun itemRemoveFromCartCLicked(item: Dish)
 }

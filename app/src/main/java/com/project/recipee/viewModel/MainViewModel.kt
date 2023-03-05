@@ -11,6 +11,8 @@ class MainViewModel : ViewModel() {
 
     val backPressed : MutableLiveData<Boolean> = MutableLiveData()
 
+    val addRecipeToFavourite : MutableLiveData<String> = MutableLiveData()
+
     fun callFragment(fragment: Fragment, bundle: Bundle) {
         fragment.arguments = Bundle()
         callFragment.postValue(fragment)

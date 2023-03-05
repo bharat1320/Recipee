@@ -1,5 +1,6 @@
 package com.project.recipee.network
 
+import com.google.gson.GsonBuilder
 import com.project.recipee.BuildConfig.BASE_URL
 import com.project.recipee.viewModel.repository.api.RecipeApis
 import dagger.Module
@@ -12,7 +13,9 @@ import okhttp3.Request
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+import retrofit2.converter.scalars.ScalarsConverterFactory
 import javax.inject.Singleton
+
 
 @Module
 @InstallIn(SingletonComponent::class)
@@ -25,10 +28,14 @@ object RetrofitInstance {
     }
 
     fun createService(): Retrofit {
+        val gson = GsonBuilder()
+            .setLenient()
+            .create()
         return Retrofit.Builder()
             .client(client)
             .baseUrl(BASE_URL)
-            .addConverterFactory(GsonConverterFactory.create())
+            .addConverterFactory(ScalarsConverterFactory.create())
+            .addConverterFactory(GsonConverterFactory.create(gson))
             .build()
     }
 

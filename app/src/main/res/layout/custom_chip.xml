@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/chip_layout"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    app:cardCornerRadius="@dimen/short_margin"
+    app:cardBackgroundColor="@color/chip_background">
+
+    <TextView
+        android:id="@+id/chip_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center|center"
+        android:textSize="@dimen/text_size_12sp"
+        android:textColor="@color/chip_text"
+        android:text="@string/app_name"
+        android:paddingVertical="@dimen/very_short_margin"
+        android:paddingHorizontal="@dimen/short_margin"
+        tools:ignore="RtlHardcoded" />
+
+</androidx.cardview.widget.CardView>

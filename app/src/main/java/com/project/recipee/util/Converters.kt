@@ -5,6 +5,7 @@ import android.graphics.BitmapFactory
 import android.util.Log
 import androidx.room.TypeConverter
 import com.project.recipee.data.Nutrient
+import com.project.recipee.data.Nutrition
 import java.io.ByteArrayInputStream
 import java.io.ByteArrayOutputStream
 import java.io.ObjectInputStream
@@ -32,18 +33,12 @@ class Converters {
     }
 
     @TypeConverter
-    fun convertCompressedByteArrayToBitmap(src: ByteArray): Bitmap {
+    fun convertByteArrayToBitmap(src: ByteArray): Bitmap {
         return BitmapFactory.decodeByteArray(src, 0, src.size)
     }
 
     @TypeConverter
-    fun convertArrayListToByteArray(data : ArrayList<Nutrient>): ByteArray{
-//        val size: Int = data.size
-//        val byteArray = ByteArray(size)
-//        for (i in 0 until size) {
-//            byteArray[i] = java.lang.Byte.valueOf(data[i])
-//        }
-//        return byteArray
+    fun convertArrayListObjectToByteArray(data : ArrayList<Nutrient>): ByteArray{
         val outputStream = ByteArrayOutputStream()
         val objectOutputStream = ObjectOutputStream(outputStream)
         objectOutputStream.writeObject(data)
@@ -51,12 +46,7 @@ class Converters {
     }
 
     @TypeConverter
-    fun convertByteArrayToArrayList(data : ByteArray): ArrayList<Nutrient>{
-//        val output = arrayListOf<Nutrient>()
-//        for( i in data) {
-//            output.add(i)
-//        }
-//        return output
+    fun convertByteArrayToArrayListObject(data : ByteArray): ArrayList<Nutrient>{
         val bytes: ByteArray = data
         val customList: ArrayList<Nutrient> = ArrayList()
         val inputStream = ByteArrayInputStream(bytes)
@@ -66,5 +56,40 @@ class Converters {
             customList.add(obj)
         }
         return customList
+    }
+
+    @TypeConverter
+    fun convertArrayListStringToByteArray(data : ArrayList<String>): ByteArray{
+        val size: Int = data.size
+        val byteArray = ByteArray(size)
+        for (i in 0 until size) {
+            byteArray[i] = java.lang.Byte.valueOf(data[i])
+        }
+        return byteArray
+    }
+
+    @TypeConverter
+    fun convertByteArrayToArrayListString (data : ByteArray): ArrayList<String>{
+        val output = arrayListOf<String>()
+        for (byte in data) {
+            val str = String(byteArrayOf(byte))
+            output.add(str)
+        }
+        return output
+    }
+
+    @TypeConverter
+    fun convertCustomObjectToByteArray (data : Nutrition): ByteArray{
+        val byteArrayOutputStream = ByteArrayOutputStream()
+        val objectOutputStream = ObjectOutputStream(byteArrayOutputStream)
+        objectOutputStream.writeObject(data)
+        return byteArrayOutputStream.toByteArray()
+    }
+
+    @TypeConverter
+    fun convertByteArrayToCustomObject (data : ByteArray): Nutrition{
+        val byteArrayInputStream = ByteArrayInputStream(data)
+        val objectInputStream = ObjectInputStream(byteArrayInputStream)
+        return objectInputStream.readObject() as Nutrition
     }
 }
