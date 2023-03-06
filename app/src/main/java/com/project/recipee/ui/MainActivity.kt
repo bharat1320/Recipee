@@ -24,6 +24,7 @@ class MainActivity : AppCompatActivity() {
         fun LOG(data :String) {
             Log.d("/@/",data)
         }
+        val message_tag = "/@/"
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -35,8 +36,7 @@ class MainActivity : AppCompatActivity() {
 
         observer()
 
-//        loadFragment(HomeFragment())
-        loadFragment(RecipeDetailFragment())
+        loadFragment(HomeFragment())
 
     }
 
@@ -48,7 +48,7 @@ class MainActivity : AppCompatActivity() {
         }
 
         mainViewModel.backPressed.observe(this) {
-            this.onBackPressed()
+            onBackPressed()
         }
     }
 

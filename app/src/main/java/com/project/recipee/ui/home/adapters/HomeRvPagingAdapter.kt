@@ -51,55 +51,61 @@ class HomeRvPagingAdapter(val context: Context, val rv: RecyclerView, private va
                     it.homeRvItemChip.chipLayout.visibility = View.VISIBLE
                     it.homeRvItemChip.chipText.text = item.nutrition.nutrients[0].getNutritionString()
                 }
-
-                it.homeRvItemLike.setOnClickListener {
-                    listener.itemCLicked(item)
-                }
-
                 it.homeRvItemTitle.setOnClickListener {
                     listener.itemCLicked(item)
                 }
+                it.homeRvItemImage.setOnClickListener {
+                    listener.itemCLicked(item)
+                }
 
-                it.homeRvItemLike.setOnClickListener { view ->
-//                if(isBookmarkPage) {
-//                If it is from bookmark page then give warning
-                    val builder: AlertDialog.Builder = AlertDialog.Builder(context)
-                    builder.setMessage("Are you sure you want to remove this from bookmark.." )
-                    builder.setCancelable(true)
-                    builder.setPositiveButton("Yes") { dialog, id ->
-                        setLike(it.homeRvItemLike,false)
-                        listener.itemRemoveFromCartCLicked(item)
-                        dialog.cancel()
-                    }
-                    builder.setNegativeButton("No") { dialog, id ->
-                        dialog.cancel()
-                    }
-                    val alert: AlertDialog = builder.create()
-                    alert.show()
-//                } else {
-//                    setLike(view.newsLike,false)
-//                    listener.removeFromBookmarkClicked(item)
+//                it.homeRvItemLike.setOnClickListener {
+//                    listener.itemCLicked(item)
 //                }
-                }
-
-                it.homeRvItemLikeBackground.setOnClickListener { view->
-                    setLike(it.homeRvItemLike,true)
-                    listener.itemAddToCartCLicked(item)
-                }
+//
+//                it.homeRvItemTitle.setOnClickListener {
+//                    listener.itemCLicked(item)
+//                }
+//
+//                it.homeRvItemLike.setOnClickListener { view ->
+////                if(isBookmarkPage) {
+////                If it is from bookmark page then give warning
+//                    val builder: AlertDialog.Builder = AlertDialog.Builder(context)
+//                    builder.setMessage("Are you sure you want to remove this from bookmark.." )
+//                    builder.setCancelable(true)
+//                    builder.setPositiveButton("Yes") { dialog, id ->
+//                        setLike(it.homeRvItemLike,false)
+//                        listener.itemRemoveFromCartCLicked(item)
+//                        dialog.cancel()
+//                    }
+//                    builder.setNegativeButton("No") { dialog, id ->
+//                        dialog.cancel()
+//                    }
+//                    val alert: AlertDialog = builder.create()
+//                    alert.show()
+////                } else {
+////                    setLike(view.newsLike,false)
+////                    listener.removeFromBookmarkClicked(item)
+////                }
+//                }
+//
+//                it.homeRvItemLikeBackground.setOnClickListener { view->
+//                    setLike(it.homeRvItemLike,true)
+//                    listener.itemAddToCartCLicked(item)
+//                }
 
             }
         }
     }
 
 
-    fun setLike(likedAnimationView: LottieAnimationView, liked: Boolean) {
-        if(liked) {
-            likedAnimationView.visibility = View.VISIBLE
-            likedAnimationView.playAnimation()
-        } else {
-            likedAnimationView.visibility = View.GONE
-        }
-    }
+//    fun setLike(likedAnimationView: LottieAnimationView, liked: Boolean) {
+//        if(liked) {
+//            likedAnimationView.visibility = View.VISIBLE
+//            likedAnimationView.playAnimation()
+//        } else {
+//            likedAnimationView.visibility = View.GONE
+//        }
+//    }
 
     object Diff : DiffUtil.ItemCallback<Dish>() {
         override fun areItemsTheSame(oldItem: Dish, newItem: Dish): Boolean =
@@ -111,6 +117,6 @@ class HomeRvPagingAdapter(val context: Context, val rv: RecyclerView, private va
 
 interface HomeRvItemClicked{
     fun itemCLicked(item: Dish)
-    fun itemAddToCartCLicked(item: Dish)
-    fun itemRemoveFromCartCLicked(item: Dish)
+//    fun itemAddToCartCLicked(item: Dish)
+//    fun itemRemoveFromCartCLicked(item: Dish)
 }

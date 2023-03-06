@@ -4,7 +4,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:padding="1dp">
+    android:padding="@dimen/short_margin">
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -43,11 +43,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/home_rv_item_image"
-                android:layout_alignBaseline="@id/home_rv_item_like"
-                android:layout_alignBottom="@+id/home_rv_item_like"
-                android:layout_alignParentStart="true"
                 android:layout_marginTop="4dp"
-                android:layout_toStartOf="@+id/home_rv_item_like"
                 android:ellipsize="end"
                 android:lines="2"
                 android:maxLines="2"
@@ -59,33 +55,33 @@
                 android:textSize="@dimen/text_size_12sp"
                 android:textStyle="bold"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toStartOf="@+id/home_rv_item_like"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/home_rv_item_image" />
 
-            <com.airbnb.lottie.LottieAnimationView
-                android:id="@+id/home_rv_item_like"
-                android:layout_width="30dp"
-                android:layout_height="0dp"
-                app:layout_constraintDimensionRatio="h,1"
-                android:layout_marginTop="@dimen/very_short_margin"
-                android:elevation="@dimen/very_short_margin"
-                app:layout_constraintEnd_toEndOf="@+id/home_rv_item_image"
-                app:layout_constraintTop_toBottomOf="@+id/home_rv_item_image"
-                app:lottie_rawRes="@raw/button_liked_big" />
-            <!--            app:lottie_autoPlay="true"-->
-            <!--            app:lottie_loop="true"-->
+<!--            <com.airbnb.lottie.LottieAnimationView-->
+<!--                android:id="@+id/home_rv_item_like"-->
+<!--                android:layout_width="30dp"-->
+<!--                android:layout_height="0dp"-->
+<!--                app:layout_constraintDimensionRatio="h,1"-->
+<!--                android:layout_marginTop="@dimen/very_short_margin"-->
+<!--                android:elevation="@dimen/very_short_margin"-->
+<!--                app:layout_constraintEnd_toEndOf="@+id/home_rv_item_image"-->
+<!--                app:layout_constraintTop_toBottomOf="@+id/home_rv_item_image"-->
+<!--                app:lottie_rawRes="@raw/button_liked_big" />-->
+<!--            &lt;!&ndash;            app:lottie_autoPlay="true"&ndash;&gt;-->
+<!--            &lt;!&ndash;            app:lottie_loop="true"&ndash;&gt;-->
 
-            <ImageView
-                android:id="@+id/home_rv_item_like_background"
-                android:layout_width="30dp"
-                android:layout_height="30dp"
-                android:elevation="1dp"
-                android:padding="6dp"
-                android:src="@drawable/ic_star_grey"
-                app:layout_constraintBottom_toBottomOf="@+id/home_rv_item_like"
-                app:layout_constraintEnd_toEndOf="@+id/home_rv_item_like"
-                app:layout_constraintTop_toTopOf="@+id/home_rv_item_like" />
+<!--            <ImageView-->
+<!--                android:id="@+id/home_rv_item_like_background"-->
+<!--                android:layout_width="30dp"-->
+<!--                android:layout_height="30dp"-->
+<!--                android:elevation="1dp"-->
+<!--                android:padding="6dp"-->
+<!--                android:src="@drawable/ic_star_grey"-->
+<!--                app:layout_constraintBottom_toBottomOf="@+id/home_rv_item_like"-->
+<!--                app:layout_constraintEnd_toEndOf="@+id/home_rv_item_like"-->
+<!--                app:layout_constraintTop_toTopOf="@+id/home_rv_item_like" />-->
 
             <!--    <ImageView-->
             <!--        android:id="@+id/home_rv_item_share"-->

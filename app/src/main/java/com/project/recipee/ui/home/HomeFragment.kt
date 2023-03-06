@@ -3,6 +3,7 @@ package com.project.recipee.ui.home
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
+import android.os.Parcelable
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -20,6 +21,7 @@ import com.project.recipee.databinding.FragmentHomeBinding
 import com.project.recipee.ui.MainActivity
 import com.project.recipee.ui.home.adapters.HomeRvItemClicked
 import com.project.recipee.ui.home.adapters.HomeRvPagingAdapter
+import com.project.recipee.ui.recipeDetail.RecipeDetailFragment
 import com.project.recipee.viewModel.MainViewModel
 import com.project.recipee.viewModel.RecipeViewModel
 import dagger.hilt.android.AndroidEntryPoint
@@ -158,15 +160,13 @@ class HomeFragment : Fragment(), HomeRvItemClicked {
     }
 
     override fun itemCLicked(item: Dish) {
-
-    }
-
-    override fun itemAddToCartCLicked(item: Dish) {
-
-    }
-
-    override fun itemRemoveFromCartCLicked(item: Dish) {
-
+        val bundle = Bundle()
+        bundle.putInt(RecipeDetailFragment.bundle_dishId,item.id)
+        bundle.putString(RecipeDetailFragment.bundle_dishName,item.title)
+        bundle.putString(RecipeDetailFragment.bundle_dishImage,item.image)
+        val fragment = RecipeDetailFragment()
+        fragment.arguments = bundle
+        mainViewModel.callFragment.postValue(fragment)
     }
 
 }

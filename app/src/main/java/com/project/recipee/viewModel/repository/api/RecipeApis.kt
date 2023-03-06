@@ -1,7 +1,6 @@
 package com.project.recipee.viewModel.repository.api
 
-import com.project.recipee.data.Dish
-import com.project.recipee.data.PagingResponse
+import com.project.recipee.data.*
 import com.project.recipee.network.URLS
 import retrofit2.http.GET
 import retrofit2.http.Query
@@ -20,4 +19,10 @@ interface RecipeApis {
         @Query("number") number :Int,
         @Query("offset") page :Int
     ) : PagingResponse<Dish>
+
+    @GET
+    suspend fun getIngredientsList(@Url url :String) : Ingredients
+
+    @GET
+    suspend fun getRecipeInstructions(@Url url :String) : Recipee
 }
