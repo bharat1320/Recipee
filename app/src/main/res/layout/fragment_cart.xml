@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:focusable="true"
+    android:clickable="true"
+    tools:context=".ui.recipeDetail.RecipeDetailFragment">
+
+    <ImageView
+        android:id="@+id/cart_back"
+        android:layout_width="@dimen/icon_size"
+        android:layout_height="@dimen/icon_size"
+        android:padding="@dimen/short_margin"
+        android:src="@drawable/ic_black_back"
+        android:elevation="2dp"
+        android:layout_marginTop="@dimen/short_margin"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/icon_size"
+        android:layout_marginTop="@dimen/short_margin"
+        android:gravity="center"
+        android:padding="@dimen/very_short_margin"
+        android:text="@string/cart_items"
+        android:textColor="@color/black"
+        android:textSize="@dimen/text_size_18sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_margin="@dimen/dp_2"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/textView2" >
+        <LinearLayout
+            android:id="@+id/cart_items_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/border_margin"
+            android:orientation="vertical"
+            android:paddingBottom="@dimen/dp_100"/>
+    </ScrollView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

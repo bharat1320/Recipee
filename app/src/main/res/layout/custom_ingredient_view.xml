@@ -25,16 +25,16 @@
                 android:maxLines="1"
                 android:ellipsize="end"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toStartOf="@+id/ingredient_add_to_cart"
+                app:layout_constraintEnd_toStartOf="@+id/ingredient_remove_from_cart"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
-                android:id="@+id/ingredient_add_to_cart"
+                android:id="@+id/ingredient_remove_from_cart"
                 android:layout_width="wrap_content"
                 android:layout_height="0dp"
                 android:padding="@dimen/short_margin"
-                android:text="@string/add_to_cart"
+                android:text="@string/remove_from_cart"
                 android:background="@color/light_green"
                 android:textColor="@color/black"
                 android:gravity="center"
@@ -43,7 +43,7 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:drawableStartCompat="@drawable/ic_black_add" />
+                app:drawableStartCompat="@drawable/ic_black_remove" />
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>

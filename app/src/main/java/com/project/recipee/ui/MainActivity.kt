@@ -1,6 +1,7 @@
 package com.project.recipee.ui
 
 import android.annotation.SuppressLint
+import android.content.Context
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
@@ -25,6 +26,11 @@ class MainActivity : AppCompatActivity() {
             Log.d("/@/",data)
         }
         val message_tag = "/@/"
+
+        val userSharedPreferences = "USER_DETAILS"
+
+        val cartSharedPreferencesName = "CART_DETAILS"
+        val CART_ARRAY = "CART_ARRAY"
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {

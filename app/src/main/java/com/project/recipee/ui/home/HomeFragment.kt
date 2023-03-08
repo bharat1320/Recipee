@@ -16,6 +16,7 @@ import androidx.recyclerview.widget.GridLayoutManager
 import com.project.recipee.R
 import com.project.recipee.data.Dish
 import com.project.recipee.databinding.FragmentHomeBinding
+import com.project.recipee.ui.cart.CartFragment
 import com.project.recipee.ui.favourites.FavouritesFragment
 import com.project.recipee.ui.home.adapters.HomeRvItemClicked
 import com.project.recipee.ui.home.adapters.HomeRvPagingAdapter
@@ -130,7 +131,7 @@ class HomeFragment : Fragment(), HomeRvItemClicked {
         }
 
         binding.homeShoppingCart.setOnClickListener {
-
+            mainViewModel.callFragment(CartFragment(),Bundle())
         }
 
         binding.homeShoppingBookmark.setOnClickListener {
