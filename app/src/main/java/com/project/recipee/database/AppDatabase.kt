@@ -2,11 +2,11 @@ package com.project.recipee.database
 
 import android.content.Context
 import androidx.room.*
-import com.project.recipee.data.Dish
+import com.project.recipee.data.LocalDish
 import com.project.recipee.util.Converters
 import com.project.recipee.viewModel.dao.BookmarksDao
 
-@Database(entities = [Dish :: class], version = 1)
+@Database(entities = [LocalDish :: class], version = 1)
 @TypeConverters(Converters::class)
 abstract class AppDatabase : RoomDatabase(){
 

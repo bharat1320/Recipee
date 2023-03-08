@@ -3,7 +3,6 @@ package com.project.recipee.ui.home
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
-import android.os.Parcelable
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -16,9 +15,8 @@ import androidx.paging.PagingData
 import androidx.recyclerview.widget.GridLayoutManager
 import com.project.recipee.R
 import com.project.recipee.data.Dish
-import com.project.recipee.database.AppDatabase
 import com.project.recipee.databinding.FragmentHomeBinding
-import com.project.recipee.ui.MainActivity
+import com.project.recipee.ui.favourites.FavouritesFragment
 import com.project.recipee.ui.home.adapters.HomeRvItemClicked
 import com.project.recipee.ui.home.adapters.HomeRvPagingAdapter
 import com.project.recipee.ui.recipeDetail.RecipeDetailFragment
@@ -33,7 +31,6 @@ import kotlinx.coroutines.launch
 class HomeFragment : Fragment(), HomeRvItemClicked {
     lateinit var binding :FragmentHomeBinding
     lateinit var mainViewModel: MainViewModel
-    private lateinit var appDb : AppDatabase
     lateinit var vm :RecipeViewModel
     lateinit var adapter: HomeRvPagingAdapter
 
@@ -63,7 +60,6 @@ class HomeFragment : Fragment(), HomeRvItemClicked {
 
         vm = ViewModelProvider(requireActivity())[RecipeViewModel::class.java]
         mainViewModel = ViewModelProvider(requireActivity())[MainViewModel::class.java]
-        appDb = AppDatabase.getDatabaseInstance(activity as MainActivity)
 
         adapters()
 
@@ -78,7 +74,7 @@ class HomeFragment : Fragment(), HomeRvItemClicked {
     fun getData() {
         adapter.submitData(lifecycle, PagingData.empty())
         adapter.refresh()
-//        adapter.notifyDataSetChanged()
+        adapter.notifyDataSetChanged()
         lifecycleScope.launch(Dispatchers.IO) {
             vm.getDishList(lastSelectedQuery, lastSelectedCuisine, lastSelectedSort).collectLatest { data ->
                 adapter.submitData(data)
@@ -133,8 +129,12 @@ class HomeFragment : Fragment(), HomeRvItemClicked {
             getData()
         }
 
-        binding.homeShoppingImage.setOnClickListener {
+        binding.homeShoppingCart.setOnClickListener {
 
+        }
+
+        binding.homeShoppingBookmark.setOnClickListener {
+            mainViewModel.callFragment(FavouritesFragment(),Bundle())
         }
 
         binding.searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener,
@@ -164,9 +164,7 @@ class HomeFragment : Fragment(), HomeRvItemClicked {
         bundle.putInt(RecipeDetailFragment.bundle_dishId,item.id)
         bundle.putString(RecipeDetailFragment.bundle_dishName,item.title)
         bundle.putString(RecipeDetailFragment.bundle_dishImage,item.image)
-        val fragment = RecipeDetailFragment()
-        fragment.arguments = bundle
-        mainViewModel.callFragment.postValue(fragment)
+        mainViewModel.callFragment(RecipeDetailFragment(),bundle)
     }
 
 }

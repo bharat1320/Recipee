@@ -96,6 +96,9 @@ dependencies {
     implementation "androidx.paging:paging-runtime-ktx:$paging_version"
     testImplementation "androidx.paging:paging-common-ktx:$paging_version"
 
+//    Flexbox
+    implementation 'com.google.android.flexbox:flexbox:3.0.0'
+
 }
 
 kapt {

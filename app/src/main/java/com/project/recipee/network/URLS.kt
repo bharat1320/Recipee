@@ -8,7 +8,8 @@ class URLS {
         const val complexSearch = "complexSearch"
 
 //        GET
-        const val ingredientList = "/ingredientWidget.json"
+        const val getIngredientList = "/ingredientWidget.json"
         const val getRecipeInstructions = "/summary"
+        const val getNutritionalValue = "/nutritionWidget.json"
     }
 }

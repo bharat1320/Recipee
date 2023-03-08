@@ -8,7 +8,7 @@
     <dimen name="border_margin">12dp</dimen>
     <dimen name="margin">15dp</dimen>
     <dimen name="very_large_margin">30dp</dimen>
-    <dimen name="news_item_corner_radius">12dp</dimen>
+    <dimen name="dp_100">100dp</dimen>
 
     <dimen name="icon_size">35dp</dimen>
     <dimen name="android_corner_radius">4dp</dimen>

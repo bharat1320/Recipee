@@ -3,8 +3,10 @@ package com.project.recipee.viewModel.repository.api
 import com.project.recipee.data.*
 import com.project.recipee.network.URLS
 import retrofit2.http.GET
+import retrofit2.http.Path
 import retrofit2.http.Query
 import retrofit2.http.Url
+import java.net.URL
 
 interface RecipeApis {
 
@@ -20,9 +22,12 @@ interface RecipeApis {
         @Query("offset") page :Int
     ) : PagingResponse<Dish>
 
-    @GET
-    suspend fun getIngredientsList(@Url url :String) : Ingredients
+    @GET("{id}"+URLS.getIngredientList)
+    suspend fun getIngredientsList(@Path("id") id :Int) : Ingredients
 
-    @GET
-    suspend fun getRecipeInstructions(@Url url :String) : Recipee
+    @GET("{id}"+URLS.getRecipeInstructions)
+    suspend fun getRecipeInstructions(@Path("id") id :Int) : Recipee
+
+    @GET("{id}"+URLS.getNutritionalValue)
+    suspend fun getNutritionalValue(@Path("id") id :Int) : Nutrients
 }

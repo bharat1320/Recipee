@@ -75,7 +75,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 app:cardCornerRadius="@dimen/short_margin"
-                app:layout_constraintDimensionRatio="h,0.74"
+                app:layout_constraintDimensionRatio="h,0.70"
                 app:layout_constraintTop_toTopOf="parent">
                 <ImageView
                     android:id="@+id/recipe_detail_image"
@@ -108,15 +108,25 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/recipe_detail_name" />
 
+            <TextView
+                android:id="@+id/text11"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:maxLines="2"
+                android:text="@string/note_click_on_plus_icon_to_add_the_ingredient_in_cart"
+                android:textSize="@dimen/text_size_11sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/text1" />
+
             <com.google.android.material.chip.ChipGroup
                 android:id="@+id/recipe_detail_ingredients"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
                 android:paddingHorizontal="@dimen/short_margin"
-                app:chipSpacing="@dimen/short_margin"
-                app:layout_constraintTop_toBottomOf="@id/text1"
-                android:layout_marginTop="@dimen/dp_2"/>
+                android:paddingBottom="@dimen/border_margin"
+                app:layout_constraintTop_toBottomOf="@id/text11"
+                android:layout_marginTop="@dimen/short_margin"/>
 
             <TextView
                 android:id="@+id/text2"
@@ -136,9 +146,33 @@
                 android:layout_height="wrap_content"
                 android:paddingHorizontal="@dimen/short_margin"
                 android:paddingBottom="@dimen/border_margin"
+                android:clickable="false"
                 app:layout_constraintTop_toBottomOf="@id/text2"
-                android:layout_marginBottom="@dimen/border_margin"
-                android:layout_marginTop="@dimen/dp_2"/>
+                android:layout_marginBottom="@dimen/border_margin"/>
+
+            <TextView
+                android:id="@+id/text3"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/border_margin"
+                android:maxLines="2"
+                android:text="@string/nutritional_value"
+                android:textSize="@dimen/text_size_16sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/recipe_detail_recipe_web_view" />
+
+            <com.google.android.material.chip.ChipGroup
+                android:id="@+id/recipe_detail_nutrients"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:paddingHorizontal="@dimen/short_margin"
+                android:paddingBottom="@dimen/border_margin"
+                android:layout_marginTop="@dimen/short_margin"
+                android:layout_marginBottom="@dimen/dp_100"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/text3"/>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>

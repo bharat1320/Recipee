@@ -1,13 +1,14 @@
 package com.project.recipee.data
 
+import com.google.gson.annotations.SerializedName
 import kotlin.math.roundToInt
 
 data class Nutrient(
-    val name : String,
-    val amount : Double,
-    val unit : String
+    @SerializedName("name") val name : String,
+    @SerializedName("amount") val amount : Double,
+    @SerializedName("unit") val unit : String
 )
 
-fun Nutrient.getNutritionString() :String {
+fun Nutrient.getNutritionSimple() :String {
     return name + ": ${amount.roundToInt()}$unit"
 }

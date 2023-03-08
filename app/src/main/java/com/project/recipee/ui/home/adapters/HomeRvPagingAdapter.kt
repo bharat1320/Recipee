@@ -1,6 +1,5 @@
 package com.project.recipee.ui.home.adapters
 
-import android.app.AlertDialog
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
@@ -8,15 +7,10 @@ import android.view.ViewGroup
 import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
-import com.airbnb.lottie.LottieAnimationView
 import com.bumptech.glide.Glide
-import com.bumptech.glide.request.RequestOptions
 import com.project.recipee.data.Dish
-import com.project.recipee.data.getNutritionString
+import com.project.recipee.data.getNutritionSimple
 import com.project.recipee.databinding.RvDishItemBinding
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
 
 class HomeRvPagingAdapter(val context: Context, val rv: RecyclerView, private val listener: HomeRvItemClicked):
     PagingDataAdapter<Dish, HomeRvPagingAdapter.HomeRvPagingViewHolder>(Diff) {
@@ -49,7 +43,7 @@ class HomeRvPagingAdapter(val context: Context, val rv: RecyclerView, private va
                 it.homeRvItemChip.chipLayout.visibility = View.GONE
                 if(item.nutrition?.nutrients?.isNotEmpty() == true) {
                     it.homeRvItemChip.chipLayout.visibility = View.VISIBLE
-                    it.homeRvItemChip.chipText.text = item.nutrition.nutrients[0].getNutritionString()
+                    it.homeRvItemChip.chipText.text = item.nutrition.nutrients[0].getNutritionSimple()
                 }
                 it.homeRvItemTitle.setOnClickListener {
                     listener.itemCLicked(item)

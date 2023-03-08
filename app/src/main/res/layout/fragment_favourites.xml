@@ -1,14 +1,70 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.favourites.FavouritesFragment">
+    android:background="@color/white"
+    android:focusable="true"
+    android:clickable="true"
+    tools:context=".ui.recipeDetail.RecipeDetailFragment">
 
-    <!-- TODO: Update blank fragment layout -->
+    <ImageView
+        android:id="@+id/favourite_back"
+        android:layout_width="@dimen/icon_size"
+        android:layout_height="@dimen/icon_size"
+        android:padding="@dimen/short_margin"
+        android:src="@drawable/ic_black_back"
+        android:elevation="2dp"
+        android:layout_marginTop="@dimen/short_margin"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <TextView
+        android:id="@+id/textView"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:layout_height="@dimen/icon_size"
+        android:layout_marginTop="@dimen/short_margin"
+        android:gravity="center"
+        android:padding="@dimen/very_short_margin"
+        android:text="@string/your_favourite_recipes"
+        android:textColor="@color/black"
+        android:textSize="@dimen/text_size_18sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
-</FrameLayout>
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginHorizontal="@dimen/border_margin"
+        android:fillViewport="true"
+        android:fitsSystemWindows="true"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView"
+        tools:layout_editor_absoluteX="12dp">
+
+        <LinearLayout
+            android:id="@+id/favourite_recipe_chip_group"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingHorizontal="@dimen/short_margin"
+            android:paddingBottom="@dimen/border_margin"
+            app:layout_constraintBottom_toBottomOf="parent" />
+
+<!--        <GridLayout-->
+<!--            android:id="@+id/favourite_recipe_chip_group"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:paddingHorizontal="@dimen/short_margin"-->
+<!--            android:paddingBottom="@dimen/border_margin"-->
+<!--            android:rowCount="2"-->
+<!--            android:orientation="horizontal"-->
+<!--            app:layout_constraintBottom_toBottomOf="parent" />-->
+
+    </ScrollView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

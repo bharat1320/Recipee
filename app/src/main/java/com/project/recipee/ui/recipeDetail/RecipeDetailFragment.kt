@@ -1,32 +1,31 @@
 package com.project.recipee.ui.recipeDetail
 
+import android.annotation.SuppressLint
 import android.os.Bundle
-import android.util.TypedValue
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
 import androidx.appcompat.app.AlertDialog
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.airbnb.lottie.LottieAnimationView
 import com.bumptech.glide.Glide
-import com.project.recipee.R
-import com.project.recipee.data.Ingredient
-import com.project.recipee.data.getIngredientSimple
+import com.project.recipee.data.*
+import com.project.recipee.database.AppDatabase
 import com.project.recipee.databinding.CustomChipBinding
-import com.project.recipee.databinding.CustomIngredientViewBinding
-import com.project.recipee.databinding.FragmentHomeBinding
 import com.project.recipee.databinding.FragmentRecipeDetailBinding
+import com.project.recipee.ui.MainActivity
 import com.project.recipee.viewModel.MainViewModel
 import com.project.recipee.viewModel.RecipeViewModel
 
-class RecipeDetailFragment : Fragment() {
+class RecipeDetailFragment() : Fragment() {
     lateinit var binding : FragmentRecipeDetailBinding
     lateinit var mainViewModel: MainViewModel
     lateinit var vm :RecipeViewModel
+    private lateinit var appDb : AppDatabase
 
-    val it = "Any random String"
+    val localDish = LocalDish(0,"","", arrayListOf(), arrayListOf(),"")
+
     val borderMargin = "0.0"
     val contentSize = "0.8"
     val start = "<html lang=\"en\">\n" +
@@ -39,13 +38,13 @@ class RecipeDetailFragment : Fragment() {
     val end = "</div></body></html>"
 
     companion object{
-        val bundle_dishId = "dishId"
-        val bundle_dishImage = "dishImage"
-        val bundle_dishName = "dishName"
+        val bundle_dishId = "bundle_dishId"
+        val bundle_dishImage = "bundle_dishImage"
+        val bundle_dishName = "bundle_dishName"
 
-        var dishId = 0
-        var dishImage = ""
-        var dishName = ""
+        val bundle_nutrition = "bundle_nutrition"
+        val bundle_ingredients = "bundle_ingredients"
+        val bundle_recipee = "bundle_recipee"
     }
 
     override fun onCreateView(
@@ -56,16 +55,19 @@ class RecipeDetailFragment : Fragment() {
         return binding.root
     }
 
+    @SuppressLint("SetJavaScriptEnabled")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         vm = ViewModelProvider(requireActivity())[RecipeViewModel::class.java]
         mainViewModel = ViewModelProvider(requireActivity())[MainViewModel::class.java]
+        appDb = AppDatabase.getDatabaseInstance(activity as MainActivity)
 
         binding.recipeDetailRecipeWebView.settings.apply {
             loadWithOverviewMode = true
             useWideViewPort = true
             builtInZoomControls = true
-            setSupportZoom(true)
+            setSupportZoom(false)
+            javaScriptEnabled = true
         }
 
         getData()
@@ -78,40 +80,85 @@ class RecipeDetailFragment : Fragment() {
     fun getData() {
         arguments?.let {
             if(it.containsKey(bundle_dishId) &&
-                it.containsKey(bundle_dishId) &&
-                it.containsKey(bundle_dishId)
+                it.containsKey(bundle_dishName) &&
+                it.containsKey(bundle_dishImage)
             ) {
-                dishId = it.getInt(bundle_dishId,0)
-                dishName = it.getString(bundle_dishName,"")
-                dishImage = it.getString(bundle_dishImage,"")
+                localDish.id = it.getInt(bundle_dishId,0)
+                localDish.title = it.getString(bundle_dishName,"")
+                localDish.image = it.getString(bundle_dishImage,"")
+
+                Glide.with(requireContext()).load(localDish.image).into(binding.recipeDetailImage)
+                binding.recipeDetailName.text = localDish.title
+
+                if(it.containsKey(bundle_ingredients) &&
+                    it.containsKey(bundle_nutrition) &&
+                    it.containsKey(bundle_recipee))
+                {
+                    binding.recipeDetailStar.visibility =View.GONE
+                    binding.recipeDetailStarBackground.visibility =View.GONE
+                    localDish.ingredientList = it.getStringArrayList(bundle_ingredients)
+                    localDish.recipee = it.getString(bundle_recipee)
+                    localDish.nutrition =it.getStringArrayList(bundle_nutrition)
+                    setNutrientInView(localDish.nutrition)
+                    setRecipeInView(localDish.recipee ?: "")
+                    localDish.ingredientList?.forEach {
+                        setIngredientInView(it)
+                    }
+                } else {
+                    setLike(binding.recipeDetailStar, false)
+                    vm.getIngredientsList(localDish.id)
+                    vm.getRecipeInstructions(localDish.id)
+                    vm.getNutritionalValue(localDish.id)
+//                    vm.getRecipeData("https://api.spoonacular.com/recipes/641166/nutritionLabel")
+                }
+            } else {
+                mainViewModel.backPressed()
             }
         }
-        Glide.with(requireContext()).load(dishImage).into(binding.recipeDetailImage)
-        binding.recipeDetailName.text = dishName
-        setLike(binding.recipeDetailStar,false)
 
-        vm.getRecipeData("https://api.spoonacular.com/recipes/$dishId/ingredientWidget")
-        vm.getIngredientsList(dishId)
-        vm.getRecipeInstructions(dishId)
     }
 
     fun observer() {
-        vm.recipeData.observe(viewLifecycleOwner) {
-
-        }
+//        vm.recipeData.observe(viewLifecycleOwner) {
+////            binding.recipeDetailRecipeWebView.loadData(it, "text/html","UTF-8")
+//            binding.recipeDetailRecipeWebView.loadUrl("https://api.spoonacular.com/recipes/641166/nutritionLabel?apiKey=edff5a27d2cc4585928837c7338201e5")
+//        }
 
         vm.ingredientList.observe(viewLifecycleOwner) {
-            setIngredientsInView(it)
+            localDish.ingredientList?.clear()
+            binding.recipeDetailIngredients.removeAllViews()
+            it.forEach { ing ->
+                val data = ing.getIngredientSimple()
+                localDish.ingredientList?.add(data)
+                setIngredientInView(data)
+            }
         }
 
         vm.recipeInstructions.observe(viewLifecycleOwner) {
-            binding.recipeDetailRecipeWebView.loadData("$start$it<br><br><br><br><br><br><br>$end", "text/html","UTF-8")
+            localDish.recipee = it
+            setRecipeInView(it)
+        }
+
+        vm.nutritionalValue.observe(viewLifecycleOwner) {
+            binding.recipeDetailNutrients.removeAllViews()
+            localDish.nutrition = arrayListOf()
+            localDish.nutrition?.add("Protein ${it.protein?:"0gm"}")
+            localDish.nutrition?.add("Calories : ${it.calories?:"0gm"}")
+            localDish.nutrition?.add("Carbs : ${it.carbs?:"0gm"}")
+            localDish.nutrition?.add("Fats : ${it.fat?:"0gm"}")
+            if(localDish.nutrition?.isEmpty() == true) {
+                localDish.nutrition?.clear()
+                binding.text3.visibility = View.INVISIBLE
+                binding.recipeDetailNutrients.visibility = View.GONE
+            } else {
+                setNutrientInView(localDish.nutrition)
+            }
         }
     }
 
     fun listeners() {
         binding.recipeDetailBack.setOnClickListener {
-            mainViewModel.backPressed.postValue(true)
+            mainViewModel.backPressed()
         }
 
         binding.recipeDetailStar.setOnClickListener { view ->
@@ -120,7 +167,7 @@ class RecipeDetailFragment : Fragment() {
             builder.setCancelable(true)
             builder.setPositiveButton("Yes") { dialog, id ->
                 setLike(binding.recipeDetailStar,false)
-//                        listener.itemRemoveFromCartCLicked(item)
+                vm.removeFromBookmark(appDb,localDish)
                 dialog.cancel()
             }
             builder.setNegativeButton("No") { dialog, id ->
@@ -132,7 +179,7 @@ class RecipeDetailFragment : Fragment() {
 
         binding.recipeDetailStarBackground.setOnClickListener { view->
             setLike(binding.recipeDetailStar,true)
-//                    listener.itemAddToCartCLicked(item)
+            vm.addToBookmark(appDb,localDish)
         }
     }
 
@@ -145,22 +192,33 @@ class RecipeDetailFragment : Fragment() {
         }
     }
 
-    fun setIngredientsInView(data : ArrayList<Ingredient>) {
-        binding.recipeDetailIngredients.removeAllViews()
-        data.forEach {
+    fun setIngredientInView(it :String) {
+        val layout = CustomChipBinding.inflate(LayoutInflater.from(requireContext()))
+        layout.chipText.text = it
+        layout.chipImage.visibility = View.VISIBLE
+        layout.chipText.setOnClickListener {
+
+        }
+        layout.chipLayout.setOnClickListener {
+
+        }
+        layout.chipImage.setOnClickListener {
+
+        }
+        binding.recipeDetailIngredients.addView(layout.root)
+    }
+
+    fun setRecipeInView(it :String) {
+        binding.recipeDetailRecipeWebView.loadData("$start$it<br>$end", "text/html","UTF-8")
+    }
+
+    @SuppressLint("SetTextI18n")
+    fun setNutrientInView(dataList: ArrayList<String>?) {
+        dataList?.forEach {
             val layout = CustomChipBinding.inflate(LayoutInflater.from(requireContext()))
-            layout.chipText.text = it.getIngredientSimple()
-            layout.chipImage.visibility = View.VISIBLE
-            layout.chipText.setOnClickListener {
-
-            }
-            layout.chipLayout.setOnClickListener {
-
-            }
-            layout.chipImage.setOnClickListener {
-
-            }
-            binding.recipeDetailIngredients.addView(layout.root)
+            layout.chipText.text = it
+            layout.chipImage.visibility = View.GONE
+            binding.recipeDetailNutrients.addView(layout.root)
         }
     }
 }

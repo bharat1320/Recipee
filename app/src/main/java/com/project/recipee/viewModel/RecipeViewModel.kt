@@ -7,9 +7,8 @@ import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.paging.PagingData
 import androidx.paging.cachedIn
-import com.project.recipee.data.Dish
-import com.project.recipee.data.Ingredient
-import com.project.recipee.data.Ingredients
+import com.project.recipee.data.*
+import com.project.recipee.database.AppDatabase
 import com.project.recipee.ui.home.adapters.pagingSource.HomeRvPagingSource
 import com.project.recipee.viewModel.repository.RecipeRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -31,6 +30,7 @@ class RecipeViewModel @Inject constructor(
         HomeRvPagingSource(repository.api,query,cuisine,sort)
     }.flow.cachedIn(viewModelScope)
 
+//    This is for Testing
     var recipeData : MutableLiveData<String> = MutableLiveData()
     fun getRecipeData(url :String) {
         CoroutineScope(Dispatchers.IO).launch {
@@ -49,6 +49,33 @@ class RecipeViewModel @Inject constructor(
     fun getRecipeInstructions(id :Int) {
         CoroutineScope(Dispatchers.IO).launch {
             recipeInstructions.postValue(repository.getRecipeInstructions(id))
+        }
+    }
+
+    var nutritionalValue : MutableLiveData<Nutrients> = MutableLiveData()
+    fun getNutritionalValue(id :Int) {
+        CoroutineScope(Dispatchers.IO).launch {
+            nutritionalValue.postValue(repository.getNutritionalValue(id))
+        }
+    }
+
+    fun addToBookmark(appDb : AppDatabase,data : LocalDish) {
+        CoroutineScope(Dispatchers.IO).launch {
+            appDb.bookmarksDao().addToBookmarks(data)
+        }
+    }
+
+    fun removeFromBookmark(appDb : AppDatabase,data : LocalDish) {
+        CoroutineScope(Dispatchers.IO).launch {
+            appDb.bookmarksDao().deleteFromBookmarks(data)
+        }
+    }
+
+    var dishFromBookmarks : MutableLiveData<List<LocalDish>> = MutableLiveData()
+    fun getDishFromBookmark(appDb : AppDatabase) {
+        CoroutineScope(Dispatchers.IO).launch {
+            val data = appDb.bookmarksDao().getAllBookmarks()
+            dishFromBookmarks.postValue(data)
         }
     }
 
