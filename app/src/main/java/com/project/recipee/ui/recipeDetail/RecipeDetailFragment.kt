@@ -1,11 +1,19 @@
 package com.project.recipee.ui.recipeDetail
 
 import android.annotation.SuppressLint
+import android.content.Context
+import android.graphics.Bitmap
+import android.graphics.BitmapFactory
+import android.net.Uri
+import android.os.AsyncTask
 import android.os.Bundle
+import android.os.Environment
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AlertDialog
+import androidx.core.content.FileProvider
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.airbnb.lottie.LottieAnimationView
@@ -17,8 +25,15 @@ import com.project.recipee.databinding.FragmentRecipeDetailBinding
 import com.project.recipee.ui.MainActivity
 import com.project.recipee.viewModel.MainViewModel
 import com.project.recipee.viewModel.RecipeViewModel
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import java.io.File
+import java.io.FileOutputStream
+import java.net.HttpURLConnection
+import java.net.URL
 
-class RecipeDetailFragment() : Fragment() {
+class RecipeDetailFragment : Fragment() {
     lateinit var binding : FragmentRecipeDetailBinding
     lateinit var mainViewModel: MainViewModel
     lateinit var vm :RecipeViewModel
@@ -94,8 +109,7 @@ class RecipeDetailFragment() : Fragment() {
                     it.containsKey(bundle_nutrition) &&
                     it.containsKey(bundle_recipee))
                 {
-                    binding.recipeDetailStar.visibility =View.GONE
-                    binding.recipeDetailStarBackground.visibility =View.GONE
+                    binding.recipeDetailStar.playAnimation()
                     localDish.ingredientList = it.getStringArrayList(bundle_ingredients)
                     localDish.recipee = it.getString(bundle_recipee)
                     localDish.nutrition =it.getStringArrayList(bundle_nutrition)
@@ -179,6 +193,22 @@ class RecipeDetailFragment() : Fragment() {
 
         binding.recipeDetailStarBackground.setOnClickListener { view->
             setLike(binding.recipeDetailStar,true)
+
+            if(!localDish.image.contains("http")) {
+                //store the image in local storage
+                val imageUrl = localDish.image
+                val downloadTask = DownloadImageTask(requireContext(), imageUrl)
+                val filePath = downloadTask.execute().get()
+                val file = File(filePath)
+                val uri = FileProvider.getUriForFile(
+                    requireContext(),
+                    "${(activity as MainActivity).packageName}.provider",
+                    file
+                )
+
+                localDish.image = uri.toString()
+            }
+
             vm.addToBookmark(appDb,localDish)
         }
     }
@@ -220,5 +250,32 @@ class RecipeDetailFragment() : Fragment() {
             layout.chipImage.visibility = View.GONE
             binding.recipeDetailNutrients.addView(layout.root)
         }
+    }
+}
+
+class DownloadImageTask(@SuppressLint("StaticFieldLeak") private val context: Context, private val imageUrl: String) : AsyncTask<Void, Void, String>() {
+
+    override fun doInBackground(vararg params: Void?): String {
+        try {
+            val url = URL(imageUrl)
+            val connection = url.openConnection() as HttpURLConnection
+            connection.doInput = true
+            connection.connect()
+            val inputStream = connection.inputStream
+            val bitmap = BitmapFactory.decodeStream(inputStream)
+
+            val fileName = "image_${System.currentTimeMillis()}.jpg"
+            val directory = context.getExternalFilesDir(Environment.DIRECTORY_PICTURES)
+            val file = File(directory, fileName)
+            val outputStream = FileOutputStream(file)
+            bitmap.compress(Bitmap.CompressFormat.JPEG, 100, outputStream)
+            outputStream.flush()
+            outputStream.close()
+
+            return file.absolutePath
+        } catch (e: Exception) {
+            Log.e("DownloadImageTask", "Error downloading image", e)
+        }
+        return ""
     }
 }
