@@ -1,18 +1,14 @@
 package com.project.recipee.ui
 
 import android.annotation.SuppressLint
-import android.content.Context
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
-import android.view.Menu
-import android.widget.SearchView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.project.recipee.R
 import com.project.recipee.databinding.ActivityMainBinding
 import com.project.recipee.ui.home.HomeFragment
-import com.project.recipee.ui.recipeDetail.RecipeDetailFragment
 import com.project.recipee.viewModel.MainViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -27,9 +23,9 @@ class MainActivity : AppCompatActivity() {
         }
         val message_tag = "/@/"
 
-        val userSharedPreferences = "USER_DETAILS"
+        val USER_SHARED_PREFERENCE = "USER_SHARED_PREFERENCE"
 
-        val cartSharedPreferencesName = "CART_DETAILS"
+        val CART_SHARED_PREFERENCE = "CART_SHARED_PREFERENCE"
         val CART_ARRAY = "CART_ARRAY"
     }
 

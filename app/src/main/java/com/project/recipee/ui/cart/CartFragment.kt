@@ -10,15 +10,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
-import com.project.recipee.R
-import com.project.recipee.data.LocalDish
-import com.project.recipee.database.AppDatabase
 import com.project.recipee.databinding.CustomIngredientViewBinding
 import com.project.recipee.databinding.FragmentCartBinding
-import com.project.recipee.databinding.FragmentRecipeDetailBinding
 import com.project.recipee.ui.MainActivity
 import com.project.recipee.viewModel.MainViewModel
-import com.project.recipee.viewModel.RecipeViewModel
 
 class CartFragment : Fragment() {
     lateinit var binding : FragmentCartBinding
@@ -41,7 +36,7 @@ class CartFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         mainViewModel = ViewModelProvider(requireActivity())[MainViewModel::class.java]
-        sharedPreferences =  requireActivity().getSharedPreferences(MainActivity.cartSharedPreferencesName, Context.MODE_PRIVATE)
+        sharedPreferences =  requireActivity().getSharedPreferences(MainActivity.CART_SHARED_PREFERENCE, Context.MODE_PRIVATE)
         sharedPreferences.getStringSet(MainActivity.CART_ARRAY,null)?.forEach{
             items.add(it)
         }
