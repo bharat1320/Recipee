@@ -63,6 +63,10 @@ class FavouritesFragment : Fragment() {
                 addRecipesInView(it)
             }
         }
+
+        vm.refreshBookmarkPage.observe(viewLifecycleOwner) {
+            getData()
+        }
     }
 
     fun addRecipesInView(item: LocalDish) {

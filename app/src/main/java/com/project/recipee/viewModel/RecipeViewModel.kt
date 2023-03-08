@@ -79,4 +79,6 @@ class RecipeViewModel @Inject constructor(
         }
     }
 
+    var refreshBookmarkPage : MutableLiveData<Boolean> = MutableLiveData()
+
 }

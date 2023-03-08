@@ -12,6 +12,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.core.content.FileProvider
 import androidx.fragment.app.Fragment
@@ -180,6 +181,7 @@ class RecipeDetailFragment : Fragment() {
             builder.setMessage("Are you sure you want to remove this from bookmark.." )
             builder.setCancelable(true)
             builder.setPositiveButton("Yes") { dialog, id ->
+                vm.refreshBookmarkPage.postValue(true)
                 setLike(binding.recipeDetailStar,false)
                 vm.removeFromBookmark(appDb,localDish)
                 dialog.cancel()
@@ -192,6 +194,7 @@ class RecipeDetailFragment : Fragment() {
         }
 
         binding.recipeDetailStarBackground.setOnClickListener { view->
+            vm.refreshBookmarkPage.postValue(true)
             setLike(binding.recipeDetailStar,true)
 
             if(!localDish.image.contains("http")) {
