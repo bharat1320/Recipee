@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import android.content.Context
 import android.content.SharedPreferences
 import android.os.Bundle
+import android.text.Html
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -61,7 +62,9 @@ class CartFragment : Fragment() {
         binding.cartItemsLayout.removeAllViews()
         items.forEach {
             val layout = CustomIngredientViewBinding.inflate(LayoutInflater.from(requireContext()))
-            layout.ingredientName.text = it
+            val start = it.substringBefore(":")
+            val end = it.substringAfter(":")
+            layout.ingredientName.text = Html.fromHtml("<font color ='#228B22'>$start</font> : $end")
             layout.ingredientRemoveFromCart.setOnClickListener { view ->
                 items.remove(it)
                 binding.cartItemsLayout.removeView(layout.root)

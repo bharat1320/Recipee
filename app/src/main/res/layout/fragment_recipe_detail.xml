@@ -101,7 +101,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:maxLines="2"
-                android:text="@string/ingredints_list"
+                android:text="@string/ingredients_list"
                 android:textSize="@dimen/text_size_16sp"
                 android:textStyle="bold"
                 android:layout_marginTop="@dimen/border_margin"

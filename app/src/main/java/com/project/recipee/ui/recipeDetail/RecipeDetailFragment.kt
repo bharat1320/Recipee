@@ -2,6 +2,7 @@ package com.project.recipee.ui.recipeDetail
 
 import android.annotation.SuppressLint
 import android.content.Context
+import android.content.SharedPreferences
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.net.Uri
@@ -38,7 +39,13 @@ class RecipeDetailFragment : Fragment() {
     lateinit var binding : FragmentRecipeDetailBinding
     lateinit var mainViewModel: MainViewModel
     lateinit var vm :RecipeViewModel
+
     private lateinit var appDb : AppDatabase
+    lateinit var sharedPreferences: SharedPreferences
+    var items = arrayListOf<String>()
+    val sharedPreferencesEditor by lazy {
+        sharedPreferences.edit()
+    }
 
     val localDish = LocalDish(0,"","", arrayListOf(), arrayListOf(),"")
 
@@ -77,6 +84,11 @@ class RecipeDetailFragment : Fragment() {
         vm = ViewModelProvider(requireActivity())[RecipeViewModel::class.java]
         mainViewModel = ViewModelProvider(requireActivity())[MainViewModel::class.java]
         appDb = AppDatabase.getDatabaseInstance(activity as MainActivity)
+
+        sharedPreferences =  requireActivity().getSharedPreferences(MainActivity.cartSharedPreferencesName, Context.MODE_PRIVATE)
+        sharedPreferences.getStringSet(MainActivity.CART_ARRAY,null)?.forEach{
+            items.add(it)
+        }
 
         binding.recipeDetailRecipeWebView.settings.apply {
             loadWithOverviewMode = true
@@ -229,16 +241,21 @@ class RecipeDetailFragment : Fragment() {
         val layout = CustomChipBinding.inflate(LayoutInflater.from(requireContext()))
         layout.chipText.text = it
         layout.chipImage.visibility = View.VISIBLE
-        layout.chipText.setOnClickListener {
-
+        layout.chipText.setOnClickListener { view ->
+            addToCart(it)
         }
-        layout.chipLayout.setOnClickListener {
-
+        layout.chipLayout.setOnClickListener { view ->
+            addToCart(it)
         }
-        layout.chipImage.setOnClickListener {
-
+        layout.chipImage.setOnClickListener { view ->
+            addToCart(it)
         }
         binding.recipeDetailIngredients.addView(layout.root)
+    }
+
+    fun addToCart(item :String) {
+        items.add(localDish.title + " : " + item)
+        Toast.makeText(requireContext(), "$item is added to your Shopping List", Toast.LENGTH_SHORT).show()
     }
 
     fun setRecipeInView(it :String) {
@@ -253,6 +270,12 @@ class RecipeDetailFragment : Fragment() {
             layout.chipImage.visibility = View.GONE
             binding.recipeDetailNutrients.addView(layout.root)
         }
+    }
+
+    override fun onPause() {
+        sharedPreferencesEditor.putStringSet(MainActivity.CART_ARRAY,items.toSet())
+        sharedPreferencesEditor.apply()
+        super.onPause()
     }
 }
 

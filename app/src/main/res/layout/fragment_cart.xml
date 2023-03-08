@@ -29,7 +29,7 @@
         android:layout_marginTop="@dimen/short_margin"
         android:gravity="center"
         android:padding="@dimen/very_short_margin"
-        android:text="@string/cart_items"
+        android:text="@string/shopping_list"
         android:textColor="@color/black"
         android:textSize="@dimen/text_size_18sp"
         app:layout_constraintEnd_toEndOf="parent"
