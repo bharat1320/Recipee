@@ -2,6 +2,7 @@ package com.project.recipee.ui
 
 import android.annotation.SuppressLint
 import android.content.Context
+import android.content.SharedPreferences
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
@@ -19,12 +20,15 @@ import dagger.hilt.android.AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
     private lateinit var mainViewModel: MainViewModel
+    private lateinit var sharedPreferences: SharedPreferences
 
     companion object{
-        fun LOG(data :String) {
-            Log.d("/@/",data)
-        }
+
         val message_tag = "/@/"
+
+        fun LOG(data :String) {
+            Log.d(message_tag,data)
+        }
 
         val ACCOUNT_SHARED_PREFERENCE = "ACCOUNT_SHARED_PREFERENCE"
         val ACCOUNT_NAME = "ACCOUNT_NAME"
@@ -52,7 +56,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun setView() {
-        val sharedPreferences =  getSharedPreferences(ACCOUNT_SHARED_PREFERENCE, Context.MODE_PRIVATE)
+        sharedPreferences = getSharedPreferences(ACCOUNT_SHARED_PREFERENCE, Context.MODE_PRIVATE)
         if(sharedPreferences.getString(ACCOUNT_NAME,"")?.isEmpty() == true) {
             loadFragment(RegisterFragment())
         } else {
@@ -93,7 +97,7 @@ class MainActivity : AppCompatActivity() {
     override fun onBackPressed() {
         val f = supportFragmentManager.findFragmentById(R.id.main_fragment_container).toString()
         if(f.contains(HomeFragment::class.simpleName.toString()) ||
-            f.contains(RegisterFragment::class.simpleName.toString())) {
+            (f.contains(RegisterFragment::class.simpleName.toString()) && !sharedPreferences.contains(ACCOUNT_NAME))) {
             this.finishAffinity()
         } else {
             super.onBackPressed()
