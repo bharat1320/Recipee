@@ -3,14 +3,28 @@
 <androidx.constraintlayout.widget.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/white"
     android:focusable="true"
     android:clickable="true">
 
+    <ImageView
+        android:id="@+id/register_back"
+        android:layout_width="@dimen/icon_size"
+        android:layout_height="@dimen/icon_size"
+        android:padding="@dimen/short_margin"
+        android:src="@drawable/ic_black_back"
+        android:elevation="2dp"
+        android:visibility="gone"
+        android:layout_marginTop="@dimen/short_margin"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <TextView
-        android:id="@+id/textView2"
+        android:id="@+id/title"
         android:layout_width="match_parent"
         android:layout_height="@dimen/icon_size"
         android:layout_marginTop="@dimen/short_margin"
@@ -22,5 +36,117 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/register_edit_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/edit"
+        android:visibility="gone"
+        android:layout_marginEnd="@dimen/border_margin"
+        android:textColor="@color/chip_text"
+        android:textStyle="bold"
+        android:textSize="@dimen/text_size_18sp"
+        app:layout_constraintBottom_toBottomOf="@+id/title"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/title" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.4"/>
+
+    <include
+        android:id="@+id/register_name"
+        layout="@layout/custom_register_item"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/very_large_margin"
+        app:layout_constraintTop_toBottomOf="@+id/title" />
+
+    <include
+        android:id="@+id/register_age"
+        layout="@layout/custom_register_item"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/short_margin"
+        app:layout_constraintTop_toBottomOf="@+id/register_name" />
+
+    <include
+        android:id="@+id/register_weight"
+        layout="@layout/custom_register_item"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/short_margin"
+        app:layout_constraintTop_toBottomOf="@+id/register_age" />
+
+    <include
+        android:id="@+id/register_height"
+        layout="@layout/custom_register_item"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/short_margin"
+        app:layout_constraintTop_toBottomOf="@+id/register_weight" />
+
+    <include
+        android:id="@+id/register_dietary_restrictions"
+        layout="@layout/custom_register_item"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/short_margin"
+        app:layout_constraintTop_toBottomOf="@+id/register_height" />
+
+    <TextView
+        android:id="@+id/text1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/border_margin"
+        android:text="@string/preferred_cuisine_type"
+        android:textColor="@color/black"
+        android:textSize="@dimen/text_size_16sp"
+        app:layout_constraintBottom_toBottomOf="@+id/register_preferred_cuisine_type_constraint"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/register_preferred_cuisine_type_constraint" />
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/register_preferred_cuisine_type_constraint"
+        style="@style/customDropDownMenu"
+        android:layout_width="0dp"
+        android:layout_height="60dp"
+        android:layout_marginTop="@dimen/border_margin"
+        android:layout_marginStart="@dimen/very_large_margin"
+        android:layout_marginEnd="@dimen/border_margin"
+        android:dropDownHeight="@dimen/cardview_compat_inset_shadow"
+        android:inputType="none"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="@+id/guideline"
+        app:layout_constraintTop_toBottomOf="@+id/register_dietary_restrictions">
+
+        <AutoCompleteTextView
+            android:id="@+id/register_preferred_cuisine_type"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:dropDownHeight="250dp"
+            android:inputType="none"
+            android:text="@string/all_cuisine"
+            android:textSize="@dimen/text_size_15sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:ignore="TouchTargetSizeCheck" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <Button
+        android:id="@+id/register_save_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/save"
+        android:layout_marginBottom="@dimen/very_large_margin"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

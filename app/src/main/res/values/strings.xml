@@ -45,6 +45,11 @@
     <string name="note_click_on_plus_icon_to_add_the_ingredient_in_cart">Note : Click on plus icon to add the ingredient in cart</string>
     <string name="your_favourite_recipes">Your Favourite Recipes</string>
     <string name="user_details">User Details</string>
+    <string name="name">Name :</string>
+    <string name="age">Age :</string>
+    <string name="save">Save</string>
+    <string name="preferred_cuisine_type">Preferred Cuisine type :</string>
+    <string name="edit">Edit</string>
 
     <!--    <string-array name="cuisine_list">-->
     <!--        <item>All</item>-->

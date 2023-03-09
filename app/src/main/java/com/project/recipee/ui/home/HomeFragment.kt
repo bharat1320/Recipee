@@ -21,6 +21,7 @@ import com.project.recipee.ui.favourites.FavouritesFragment
 import com.project.recipee.ui.home.adapters.HomeRvItemClicked
 import com.project.recipee.ui.home.adapters.HomeRvPagingAdapter
 import com.project.recipee.ui.recipeDetail.RecipeDetailFragment
+import com.project.recipee.ui.register.RegisterFragment
 import com.project.recipee.viewModel.MainViewModel
 import com.project.recipee.viewModel.RecipeViewModel
 import dagger.hilt.android.AndroidEntryPoint
@@ -64,8 +65,6 @@ class HomeFragment : Fragment(), HomeRvItemClicked {
 
         adapters()
 
-        observers()
-
         getData()
 
         listener()
@@ -75,7 +74,6 @@ class HomeFragment : Fragment(), HomeRvItemClicked {
     fun getData() {
         adapter.submitData(lifecycle, PagingData.empty())
         adapter.refresh()
-        adapter.notifyDataSetChanged()
         lifecycleScope.launch(Dispatchers.IO) {
             vm.getDishList(lastSelectedQuery, lastSelectedCuisine, lastSelectedSort).collectLatest { data ->
                 adapter.submitData(data)
@@ -113,11 +111,12 @@ class HomeFragment : Fragment(), HomeRvItemClicked {
         binding.homeNewsRv.adapter = adapter
     }
 
-    fun observers() {
-
-    }
-
     fun listener() {
+
+        binding.homeAccount.setOnClickListener {
+            mainViewModel.callFragment(RegisterFragment(),Bundle())
+        }
+
         binding.homeCuisineFilter.setOnItemClickListener { _, _, position, _ ->
             var item = cuisineList[position]
             lastSelectedCuisine = if(item == resources.getString(R.string.all_cuisine)) "" else item
