@@ -23,7 +23,7 @@ class MainActivity : AppCompatActivity() {
         }
         val message_tag = "/@/"
 
-        val USER_SHARED_PREFERENCE = "USER_SHARED_PREFERENCE"
+        val ACCOUNT_SHARED_PREFERENCE = "ACCOUNT_SHARED_PREFERENCE"
 
         val CART_SHARED_PREFERENCE = "CART_SHARED_PREFERENCE"
         val CART_ARRAY = "CART_ARRAY"
