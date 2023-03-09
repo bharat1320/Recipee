@@ -20,6 +20,8 @@ import com.project.recipee.ui.cart.CartFragment
 import com.project.recipee.ui.favourites.FavouritesFragment
 import com.project.recipee.ui.home.adapters.HomeRvItemClicked
 import com.project.recipee.ui.home.adapters.HomeRvPagingAdapter
+import com.project.recipee.ui.home.adapters.LoaderAdapter
+import com.project.recipee.ui.mealPlanner.MealPlanningFragment
 import com.project.recipee.ui.recipeDetail.RecipeDetailFragment
 import com.project.recipee.ui.register.RegisterFragment
 import com.project.recipee.viewModel.MainViewModel
@@ -108,10 +110,17 @@ class HomeFragment : Fragment(), HomeRvItemClicked {
 //            }
 //        }
         adapter = HomeRvPagingAdapter(requireContext(),binding.homeNewsRv,this)
-        binding.homeNewsRv.adapter = adapter
+        binding.homeNewsRv.adapter = adapter.withLoadStateHeaderAndFooter(
+            LoaderAdapter(),
+            LoaderAdapter()
+        )
     }
 
     fun listener() {
+
+        binding.homeCalendar.setOnClickListener {
+            mainViewModel.callFragment(MealPlanningFragment(),Bundle())
+        }
 
         binding.homeAccount.setOnClickListener {
             mainViewModel.callFragment(RegisterFragment(),Bundle())
