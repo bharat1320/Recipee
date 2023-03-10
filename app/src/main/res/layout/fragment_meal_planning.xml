@@ -47,8 +47,61 @@
     <androidx.viewpager2.widget.ViewPager2
         android:id="@+id/meal_planner_view_pager"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        app:layout_constraintTop_toBottomOf="@id/meal_planner_tab_layout"
-        app:layout_constraintBottom_toBottomOf="parent" />
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/meal_planner_tab_layout" />
+
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/hint"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        app:boxStrokeWidth="0.6dp"
+        app:boxStrokeWidthFocused="0.6dp"
+        android:hint="@string/search_your_dish"
+        app:layout_constraintTop_toBottomOf="@id/meal_planner_view_pager"
+        android:layout_margin="@dimen/border_margin">
+        <AutoCompleteTextView
+            android:id="@+id/meal_planner_search"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/border_margin"/>
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <!--    <TextView-->
+    <!--        android:id="@+id/title_breakfast"-->
+    <!--        android:layout_width="wrap_content"-->
+    <!--        android:layout_height="wrap_content"-->
+    <!--        android:text="@string/breakfast"-->
+    <!--        android:textColor="@color/black"-->
+    <!--        android:textSize="@dimen/text_size_16sp"-->
+    <!--        android:textStyle="bold"-->
+    <!--        android:layout_margin="@dimen/border_margin"-->
+    <!--        app:layout_constraintStart_toStartOf="parent"-->
+    <!--        app:layout_constraintTop_toBottomOf="@+id/meal_planner_tab_layout" />-->
+
+    <!--    <TextView-->
+    <!--        android:id="@+id/title_lunch"-->
+    <!--        android:layout_width="wrap_content"-->
+    <!--        android:layout_height="wrap_content"-->
+    <!--        android:layout_margin="@dimen/border_margin"-->
+    <!--        android:text="@string/lunch"-->
+    <!--        android:textColor="@color/black"-->
+    <!--        android:textSize="@dimen/text_size_16sp"-->
+    <!--        android:textStyle="bold"-->
+    <!--        app:layout_constraintStart_toStartOf="parent"-->
+    <!--        app:layout_constraintTop_toBottomOf="@+id/title_breakfast" />-->
+
+    <!--    <TextView-->
+    <!--        android:id="@+id/title_dinner"-->
+    <!--        android:layout_width="wrap_content"-->
+    <!--        android:layout_height="wrap_content"-->
+    <!--        android:layout_margin="@dimen/border_margin"-->
+    <!--        android:text="@string/dinner"-->
+    <!--        android:textColor="@color/black"-->
+    <!--        android:textSize="@dimen/text_size_16sp"-->
+    <!--        android:textStyle="bold"-->
+    <!--        app:layout_constraintStart_toStartOf="parent"-->
+    <!--        app:layout_constraintTop_toBottomOf="@+id/title_lunch" />-->
 
 </androidx.constraintlayout.widget.ConstraintLayout>

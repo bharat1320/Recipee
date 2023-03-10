@@ -38,7 +38,7 @@ class HomeFragment : Fragment(), HomeRvItemClicked {
     lateinit var vm :RecipeViewModel
     lateinit var adapter: HomeRvPagingAdapter
 
-    var lastSelectedQuery = "paneer"
+    var lastSelectedQuery = "i"
     var lastSelectedCuisine = ""
     var lastSelectedSort = ""
 
@@ -149,11 +149,11 @@ class HomeFragment : Fragment(), HomeRvItemClicked {
         binding.searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener,
             androidx.appcompat.widget.SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String?): Boolean {
-                checkSearchThreadAvailability(query)
+                checkSearchThreadAvailability(if(query == "") "i" else query)
                 return false
             }
             override fun onQueryTextChange(query: String?): Boolean {
-                checkSearchThreadAvailability(query)
+                checkSearchThreadAvailability(if(query == "") "i" else query)
                 return false
             }
         })

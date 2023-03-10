@@ -81,4 +81,11 @@ class RecipeViewModel @Inject constructor(
 
     var refreshBookmarkPage : MutableLiveData<Boolean> = MutableLiveData()
 
+    var dishSearchList : MutableLiveData<SearchEntity> = MutableLiveData()
+    fun getDishSearchList(query : String) {
+        CoroutineScope(Dispatchers.IO).launch {
+            dishSearchList.postValue(SearchEntity(query,repository.getDishSearchList(query)?.results ?: arrayListOf()))
+        }
+    }
+
 }

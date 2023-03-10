@@ -11,7 +11,9 @@
     <color name="red">#FF5656</color>
     <color name="white">#FFFFFFFF</color>
 
+    <color name="light_purple">#BCCBC3E3</color>
     <color name="light_green">#90EE90</color>
+
     <color name="chip_text">#006D5B</color>
     <color name="chip_background">#E8F8F5</color>
 </resources>

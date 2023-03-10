@@ -41,6 +41,9 @@ class MainActivity : AppCompatActivity() {
 
         val CART_SHARED_PREFERENCE = "CART_SHARED_PREFERENCE"
         val CART_ARRAY = "CART_ARRAY"
+
+        val WEEK_PLAN_SHARED_PREFERENCE = "WEEK_PLAN_SHARED_PREFERENCE"
+        val WEEK_PLAN = "WEEK_PLAN"
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -61,8 +64,7 @@ class MainActivity : AppCompatActivity() {
         if(sharedPreferences.getString(ACCOUNT_NAME,"")?.isEmpty() == true) {
             loadFragment(RegisterFragment())
         } else {
-//            loadFragment(HomeFragment())
-            loadFragment(MealPlanningFragment())
+            loadFragment(HomeFragment())
         }
     }
 

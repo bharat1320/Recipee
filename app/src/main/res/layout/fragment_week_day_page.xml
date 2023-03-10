@@ -4,23 +4,59 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@color/white"
+    android:layout_height="wrap_content"
+    android:background="@color/light_purple"
     android:focusable="true"
     android:clickable="true">
 
     <TextView
-        android:id="@+id/week_date"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/icon_size"
-        android:layout_marginTop="@dimen/short_margin"
-        android:gravity="center"
-        android:padding="@dimen/very_short_margin"
-        android:textColor="@color/chip_text"
-        android:textSize="@dimen/text_size_18sp"
-        app:layout_constraintEnd_toEndOf="parent"
+        android:id="@+id/week_day"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/date"
+        android:textColor="@color/black"
+        android:textSize="@dimen/text_size_16sp"
+        android:textStyle="bold"
+        android:layout_margin="@dimen/border_margin"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/week_day_breakfast"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/breakfast"
+        android:textColor="@color/black"
+        android:textSize="@dimen/text_size_16sp"
+        android:textStyle="bold"
+        android:layout_margin="@dimen/border_margin"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/week_day" />
+
+    <TextView
+        android:id="@+id/week_day_lunch"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/border_margin"
+        android:text="@string/lunch"
+        android:textColor="@color/black"
+        android:textSize="@dimen/text_size_16sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/week_day_breakfast" />
+
+    <TextView
+        android:id="@+id/week_day_dinner"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/border_margin"
+        android:text="@string/dinner"
+        android:textColor="@color/black"
+        android:textSize="@dimen/text_size_16sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/week_day_lunch" />
 
 
 
