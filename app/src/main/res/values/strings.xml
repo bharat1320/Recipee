@@ -50,6 +50,7 @@
     <string name="save">Save</string>
     <string name="preferred_cuisine_type">Preferred Cuisine type :</string>
     <string name="edit">Edit</string>
+    <string name="meal_planner">Meal Planner</string>
 
     <!--    <string-array name="cuisine_list">-->
     <!--        <item>All</item>-->

@@ -12,6 +12,7 @@ import androidx.lifecycle.ViewModelProvider
 import com.project.recipee.R
 import com.project.recipee.databinding.ActivityMainBinding
 import com.project.recipee.ui.home.HomeFragment
+import com.project.recipee.ui.mealPlanner.MealPlanningFragment
 import com.project.recipee.ui.register.RegisterFragment
 import com.project.recipee.viewModel.MainViewModel
 import dagger.hilt.android.AndroidEntryPoint
@@ -60,7 +61,8 @@ class MainActivity : AppCompatActivity() {
         if(sharedPreferences.getString(ACCOUNT_NAME,"")?.isEmpty() == true) {
             loadFragment(RegisterFragment())
         } else {
-            loadFragment(HomeFragment())
+//            loadFragment(HomeFragment())
+            loadFragment(MealPlanningFragment())
         }
     }
 
