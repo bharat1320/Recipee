@@ -34,7 +34,7 @@ class WeekDayPageFragment(
         vm = ViewModelProvider(requireActivity())[RecipeViewModel::class.java]
         mainViewModel = ViewModelProvider(requireActivity())[MainViewModel::class.java]
 
-        binding.weekDay.text = "Day : ${day.replace("    ", " ")}"
+        binding.weekDay.text = "Day : $day"
         binding.weekDayBreakfast.text = MealPlanningFragment.mealBrekfast
         binding.weekDayLunch.text = MealPlanningFragment.mealLunch
         binding.weekDayDinner.text = MealPlanningFragment.mealDinner
@@ -48,6 +48,9 @@ class WeekDayPageFragment(
         weekPlan.observe(viewLifecycleOwner) { list ->
             list.forEach {
                 if(it.contains(day)) {
+                    binding.weekDayBreakfast.text = MealPlanningFragment.mealBrekfast
+                    binding.weekDayLunch.text = MealPlanningFragment.mealLunch
+                    binding.weekDayDinner.text = MealPlanningFragment.mealDinner
                     binding.weekDayBreakfast.append((it.substringAfter(MealPlanningFragment.mealBrekfast)).substringBefore(MealPlanningFragment.mealLunch))
                     binding.weekDayLunch.append((it.substringAfter(MealPlanningFragment.mealLunch)).substringBefore(MealPlanningFragment.mealDinner))
                     binding.weekDayDinner.append(it.substringAfter(MealPlanningFragment.mealDinner))

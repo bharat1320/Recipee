@@ -56,6 +56,7 @@
     <string name="dinner">Dinner</string>
     <string name="date">Date</string>
     <string name="search_your_dish">Search your dish</string>
+    <string name="add_to_plan_as">Add to Meal Plan as :</string>
 
     <!--    <string-array name="cuisine_list">-->
     <!--        <item>All</item>-->

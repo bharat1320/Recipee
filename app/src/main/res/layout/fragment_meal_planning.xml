@@ -3,6 +3,7 @@
 <androidx.constraintlayout.widget.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/white"
@@ -50,35 +51,45 @@
         android:layout_height="wrap_content"
         app:layout_constraintTop_toBottomOf="@id/meal_planner_tab_layout" />
 
+    <androidx.appcompat.widget.AppCompatSpinner
+        android:id="@+id/meal_planner_meal_selector"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/border_margin"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/meal_planner_view_pager" />
+
+    <TextView
+        android:id="@+id/title1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/border_margin"
+        android:text="@string/add_to_plan_as"
+        android:textColor="@color/black"
+        android:textSize="@dimen/text_size_16sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@+id/meal_planner_meal_selector"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/meal_planner_meal_selector" />
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/hint"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        android:layout_marginHorizontal="@dimen/border_margin"
+        android:hint="@string/search_your_dish"
         app:boxStrokeWidth="0.6dp"
         app:boxStrokeWidthFocused="0.6dp"
-        android:hint="@string/search_your_dish"
-        app:layout_constraintTop_toBottomOf="@id/meal_planner_view_pager"
-        android:layout_margin="@dimen/border_margin">
+        app:layout_constraintTop_toBottomOf="@+id/meal_planner_meal_selector"
+        tools:layout_editor_absoluteX="12dp">
+
         <AutoCompleteTextView
             android:id="@+id/meal_planner_search"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:padding="@dimen/border_margin"/>
+            android:padding="@dimen/border_margin" />
     </com.google.android.material.textfield.TextInputLayout>
-
-    <!--    <TextView-->
-    <!--        android:id="@+id/title_breakfast"-->
-    <!--        android:layout_width="wrap_content"-->
-    <!--        android:layout_height="wrap_content"-->
-    <!--        android:text="@string/breakfast"-->
-    <!--        android:textColor="@color/black"-->
-    <!--        android:textSize="@dimen/text_size_16sp"-->
-    <!--        android:textStyle="bold"-->
-    <!--        android:layout_margin="@dimen/border_margin"-->
-    <!--        app:layout_constraintStart_toStartOf="parent"-->
-    <!--        app:layout_constraintTop_toBottomOf="@+id/meal_planner_tab_layout" />-->
 
     <!--    <TextView-->
     <!--        android:id="@+id/title_lunch"-->
